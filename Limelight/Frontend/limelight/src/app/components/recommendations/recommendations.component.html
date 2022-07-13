@@ -1,0 +1,106 @@
+<div class="topnav">
+  <a [routerLink]="['/home']">Home</a>
+  <a [routerLink]="['/favourites']">Favourites</a>
+  <a class="active">Recommendations</a>
+  <a [routerLink]="['/virtualStage']">Virtual Stage</a>
+  <a style="float:right" [routerLink]="['']" (click)="logout()">Logout</a>
+  <a (click)="open(content)" style="float:right">Profile</a>
+</div>
+
+<div class="list-group" *ngIf="plays">
+  <hr>
+  <div *ngFor="let play of plays">
+    <div class="playDiv">
+      <img src="../assets/squarejpg.jpeg">
+      <div class="list-group-item list-group-item-action flex-column align-items-start active" class="play">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1" id="title">Title: {{ play.title }}</h5>
+        </div>
+        <p>Genre: {{ play.genre }}</p>
+        <small>Actors: {{ play.actorCast }}</small>
+      </div>
+    </div>
+    <hr>
+  </div>
+</div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit profile</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label>First name</label>
+        <div>
+          <input id="idFirstName" type="text" class="form-control" value="{{ user.firstName }}"/>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Last name</label>
+        <div>
+          <input id="idLastName" type="text" class="form-control" value="{{ user.lastName }}"/>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Email</label>
+        <div>
+          <input id="idEmail" type="text" class="form-control" disabled value="{{ user.email }}"/>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Mobile number</label>
+        <div>
+          <input id="idMobileNumber" type="text" class="form-control" value="{{ user.mobileNumber }}"
+                 name="mobileNumber" [(ngModel)]="user.mobileNumber" required pattern="[0-9+]{10,}"
+                 #mobileNumber="ngModel"/>
+          <div *ngIf="mobileNumber.invalid && mobileNumber.touched">
+            <small class="text-danger">Enter a valid mobile number.</small>
+          </div>
+        </div>
+      </div>
+      <br>
+      <div class="mb-3">
+        <button class="btn btn-lg btn-outline-primary" (click)="open(content2)">Change password</button>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="save()">Save</button>
+  </div>
+</ng-template>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title2">Change password</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="mb-3">
+        <label>Enter new password:</label>
+        <div>
+          <input id="idPass" type="password" class="form-control" name="password" (ngModel)="user.password" required
+                 #password="ngModel" [class.is-invalid]="password.invalid && password.touched"/>
+          <small class="text-danger" [class.d-none]="password.valid || password.untouched">Password is a required
+            field.</small>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label>Confirm password:</label>
+        <div>
+          <input id="idPass2" type="password" class="form-control" name="cpassword" (ngModel)="user.password" required
+                 #cpassword="ngModel" [class.is-invalid]="cpassword.invalid && cpassword.touched"/>
+          <small class="text-danger" [class.d-none]="(cpassword.value == password.value) || cpassword.untouched">Passwords
+            should match.</small>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="changePass()">Save</button>
+  </div>
+</ng-template>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

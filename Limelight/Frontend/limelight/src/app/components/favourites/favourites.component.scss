@@ -1,0 +1,52 @@
+.topnav a:hover {
+  background-color: #DAA520;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #333;
+  color: white;
+}
+
+.topnav a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #F0E68C;
+}
+
+#test {
+  color: white;
+}
+
+img {
+  height: 100px;
+  width: 100px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.playDiv {
+  display: flex;
+}
+
+table {
+  background: white;
+}
+
+#remove {
+  color: red;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+#search {
+  margin-left:10px;
+}
